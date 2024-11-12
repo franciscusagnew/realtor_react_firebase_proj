@@ -3,7 +3,7 @@ import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import OAuth from "../components/OAuth";
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { db } from "../firebase.js"
+import { db } from "../firebase"
 import { doc, serverTimestamp, setDoc } from "@firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -74,7 +74,7 @@ export default function SignUp() {
 							value={name}
 							onChange={onChange}
 							placeholder="Full Name"
-							required
+							// required
 						/>
 						<input
 							className="w-full px-4 py-2 text-xl text-gray-700 bg-white border-grey-300 rounded transition ease-in-out mb-6"
@@ -84,7 +84,7 @@ export default function SignUp() {
 							onChange={onChange}
 							placeholder="Email Address"
 							autoComplete="username"
-							required
+							// required
 						/>
 						<div className="relative">
 							<input
@@ -95,7 +95,7 @@ export default function SignUp() {
 								onChange={onChange}
 								placeholder="Password"
 								autoComplete="new-password"
-								required
+								// required
 							/>
 							{showPassword ? (
 								<AiFillEyeInvisible
