@@ -4,11 +4,13 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
 import { doc, updateDoc } from "@firebase/firestore";
 import { db } from "../firebase";
+import { FcHome } from "react-icons/fc";
+import {Link} from 'react-router-dom'
 
 export default function Profile() {
-    const auth = getAuth();
-    const navigate = useNavigate();
-    const [changeDetail, setChangeDetail] = useState(false);
+	const auth = getAuth();
+	const navigate = useNavigate();
+	const [changeDetail, setChangeDetail] = useState(false);
 
 	const [formData, setFormData] = useState({
 		// name: "Franciscus Agnew",
@@ -16,39 +18,39 @@ export default function Profile() {
 		name: auth.currentUser.displayName,
 		email: auth.currentUser.email,
 	});
-    const { name, email } = formData;
+	const { name, email } = formData;
 
-    function onLogout() {
-        auth.signOut();
-        navigate("/");
-    }
+	function onLogout() {
+		auth.signOut();
+		navigate("/");
+	}
 
-    function onChange(e) {
-        setFormData((prevState) => ({
-            ...prevState,
-            [e.target.id]: e.target.value,
-        }));
-    }
+	function onChange(e) {
+		setFormData((prevState) => ({
+			...prevState,
+			[e.target.id]: e.target.value,
+		}));
+	}
 
-    async function onSubmit(e) {
-        try {
-            if (auth.currentUser.displayName !== name) {
-                // Update display name in Firebase auth
-                await updateProfile(auth.currentUser, {
-                    displayName: name,
-                });
+	async function onSubmit(e) {
+		try {
+			if (auth.currentUser.displayName !== name) {
+				// Update display name in Firebase auth
+				await updateProfile(auth.currentUser, {
+					displayName: name,
+				});
 
-                // Update name in Firestore
-                const docRef = doc(db, "users", auth.currentUser.uid);
-                await updateDoc(docRef, {
-                    name,
-                });
-            }
-            toast.success("Profile details updated.")
-        } catch (error) {
-            toast.error("Could not update profile details!")
-        }
-    }
+				// Update name in Firestore
+				const docRef = doc(db, "users", auth.currentUser.uid);
+				await updateDoc(docRef, {
+					name,
+				});
+			}
+			toast.success("Profile details updated.");
+		} catch (error) {
+			toast.error("Could not update profile details!");
+		}
+	}
 
 	return (
 		<>
@@ -57,7 +59,9 @@ export default function Profile() {
 				<div className="w-full md:w-[50%] mt-6 px-3">
 					<form>
 						<input
-                            className={`mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out ${changeDetail && "bg-red-200 focus:bg-red-200"}`}
+							className={`mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out ${
+								changeDetail && "bg-red-200 focus:bg-red-200"
+							}`}
 							type="text"
 							id="name"
 							value={name}
@@ -66,7 +70,9 @@ export default function Profile() {
 						/>
 
 						<input
-							className={`mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out ${changeDetail && "bg-red-200 focus:bg-red-200"}`}
+							className={`mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out ${
+								changeDetail && "bg-red-200 focus:bg-red-200"
+							}`}
 							type="email"
 							id="email"
 							value={email}
@@ -78,11 +84,11 @@ export default function Profile() {
 							<p className="flex items-center">
 								Do you want to change your name?
 								<span
-                                    className="text-red-600 hover:text-red-700 transition ease-in-out duration-200 cursor-pointer ml-1"
-                                    onClick={() => {
-                                        changeDetail && onSubmit();
-                                        setChangeDetail((prevState) => !prevState)
-                                    }}
+									className="text-red-600 hover:text-red-700 transition ease-in-out duration-200 cursor-pointer ml-1"
+									onClick={() => {
+										changeDetail && onSubmit();
+										setChangeDetail((prevState) => !prevState);
+									}}
 								>
 									{changeDetail ? "Apply Change" : "Edit"}
 								</span>
@@ -95,6 +101,12 @@ export default function Profile() {
 							</p>
 						</div>
 					</form>
+					<button className="w-full bg-blue-600 text-white uppercase px-7 py-3 text-sm font-medium rounded shadow-md hover:bg-blue-700 transition duration-150 ease-in-out hover:shadow-lg active:bg-blue-800" type="submit">
+						<Link className="flex justify-center items-center" to="/create-listing">
+							<FcHome className="mr-2 text-3xl bg-red-200 rounded-full p-1 border-2"/>
+							Sell or Rent Your Home
+						</Link>
+					</button>
 				</div>
 			</section>
 		</>
