@@ -6,11 +6,13 @@ import Spinner from "../components/Spinner";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import { EffectFade, Autoplay, Navigation, Pagination } from "swiper/modules";
 import "swiper/css/bundle";
+import { FaShare } from "react-icons/fa";
 
 export default function Listing() {
 	const params = useParams();
 	const [listing, setListing] = useState(null);
-	const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
+    const [shareLinkCopied, setShareLinkCopied] = useState(false);
 
 	useEffect(() => {
 		async function fetchListing() {
@@ -27,7 +29,7 @@ export default function Listing() {
 		return <Spinner />;
 	}
 	return (
-		<main>
+		<main className="relative">
 			<Swiper
 				modules={[Navigation, EffectFade, Pagination, Autoplay]}
 				slidesPerView={1}
@@ -48,6 +50,18 @@ export default function Listing() {
 					</SwiperSlide>
 				))}
 			</Swiper>
+            <div className="fixed items-center justify-center top-[13%] right-[3%] z-10 flex cursor-pointer bg-white w-10 h-10 border-gray-400 rounded-full" onClick={() => {
+                navigator.clipboard.writeText(window.location.href);
+                setShareLinkCopied(true);
+                setTimeout(() => {
+                    setShareLinkCopied(false);
+                }, 2000)
+            }}>
+				<FaShare className="text-lg text-red-500"/>
+            </div>
+            {shareLinkCopied && (
+                <p className="fixed top-[23%] right-[5%] border border-slate-600 text-gray-500 rounded-md bg-white z-10 p-2">Link Copied</p>
+            )}
 		</main>
 	);
 }
