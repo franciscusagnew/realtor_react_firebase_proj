@@ -32,7 +32,7 @@ export default function ListingItem({ listing, id, onDelete, onEdit }) {
 					<p className="text-[#457b9d] mt-2 font-semibold">
 						$
 						{listing.offer
-							? listing.discountedPrice
+							? (+listing.regularPrice - +listing.discountedPrice)
 									.toString()
 									.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 							: listing.regularPrice

@@ -73,7 +73,7 @@ export default function EditListing() {
 		async function fetchListing() {
 			const docRef = doc(db, "listings", params.listingId);
 			const docSnap = await getDoc(docRef);
-			if (docSnap.exists) {
+			if (docSnap.exists()) {
 				setListing(docSnap.data());
 				setFormData({ ...docSnap.data() });
 				setLoading(false);
@@ -209,7 +209,8 @@ export default function EditListing() {
 		!formDataCopy.offer && delete formDataCopy.discountedPrice;
 		delete formDataCopy.latitude;
 		delete formDataCopy.longitude;
-		const docRef = doc(db, "listings", params.listingId);
+        const docRef = doc(db, "listings", params.listingId);
+
 		await updateDoc(docRef, formDataCopy);
 		setLoading(false);
 		toast.success("Listing Edited");
@@ -481,8 +482,8 @@ export default function EditListing() {
 						id="images"
 						onChange={onChange}
 						accept=".jpg, .png, .jpeg"
-						multiple
-						required
+                        multiple
+                        required
 					/>
 				</div>
 				<button
