@@ -161,7 +161,16 @@ export default function Listing() {
 							position={[listing.geolocation.lat, listing.geolocation.lng]}
 						>
 							<Popup>
-								A pretty CSS3 popup. <br /> Easily customizable.
+								<p className="font-semibold pr-1">
+									{listing.name}{" "}
+									<span className="text-blue-900">
+										$
+										{listing.regularPrice
+											.toString()
+											.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+									</span>
+								</p>
+								<p>{listing.address}</p>
 							</Popup>
 						</Marker>
 					</MapContainer>
