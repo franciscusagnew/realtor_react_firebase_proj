@@ -64,8 +64,7 @@ export default function Slider() {
 							</p>
 							<p className="text-[#f1faee] bg-[#e63946] absolute left-1 bottom-1 font-semibold max-w-[90%] shadow-lg opacity-90 p-2 rounded-tr-3xl">
 								$
-								{data.discountedPrice ??
-									data.regularPrice
+								{data.regularPrice
 										.toString()
 										.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
 								{data.type === "rent" && " / month"}
