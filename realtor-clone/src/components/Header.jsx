@@ -82,7 +82,7 @@ export default function Header() {
 					</ul>
 				</div>
 				<button
-					className="fixed top-[2.5%] right-[5%] cursor-pointer font-semibold text-slate-500  hover:text-red-600 md:hidden"
+					className="fixed top-[18px] right-[5%] cursor-pointer font-semibold text-slate-500  hover:text-red-600 md:hidden"
 					type="button"
 					id="toggler"
 					onClick={toggle}

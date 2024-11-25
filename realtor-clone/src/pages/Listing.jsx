@@ -64,7 +64,7 @@ export default function Listing() {
 				))}
 			</Swiper>
 			<div
-				className="absolute items-center justify-center top-[5%] right-[10%] z-10 flex cursor-pointer bg-white w-10 h-10 border-gray-400 rounded-full"
+				className="absolute items-center justify-center top-[20px] right-[20px] z-10 flex cursor-pointer bg-white w-10 h-10 border-gray-400 rounded-full"
 				onClick={() => {
 					navigator.clipboard.writeText(window.location.href);
 					setShareLinkCopied(true);
@@ -81,7 +81,7 @@ export default function Listing() {
 				</p>
 			)}
 			<div className="m-4 p-4 flex flex-col max-w-6xl bg-white rounded-lg shadow-lg lg:mx-auto lg:space-x-5 md:flex-row ">
-				<div className="w-full">
+				<div className="w-full mr-2">
 					<p className="text-2xl font-bold mb-3 text-blue-900">
 						{listing.name} - $
 						{listing.offer
@@ -114,20 +114,20 @@ export default function Listing() {
 						<span className="font-semibold">Description</span> -{" "}
 						{listing.description}
 					</p>
-					<ul className="flex items-center space-x-2 lg:space-x-10 text-sm font-semibold mb-6">
-						<li className="flex items-center whitespace-nowrap">
+					<ul className="grid grid-cols-2 grid-rows-2 grid-flow-row gap-4 text-sm font-semibold mb-6 | md:flex md:items-center md:space-x-2 | lg:space-x-10">
+						<li className="flex | md:items-center md:whitespace-nowrap">
 							<FaBed className="text-lg mr-1" />
 							{+listing.bedrooms > 1 ? `${listing.bedrooms} Beds` : "1 Bed"}
 						</li>
-						<li className="flex items-center whitespace-nowrap">
+						<li className="flex | md:items-center md:whitespace-nowrap">
 							<FaBath className="text-lg mr-1" />
 							{+listing.bathrooms > 1 ? `${listing.bathrooms} Baths` : "1 Bath"}
 						</li>
-						<li className="flex items-center whitespace-nowrap">
+						<li className="flex | md:items-center md:whitespace-nowrap">
 							<FaParking className="text-lg mr-1" />
 							{+listing.parking ? "Parking" : "No Parking"}
 						</li>
-						<li className="flex items-center whitespace-nowrap">
+						<li className="flex | md:items-center md:whitespace-nowrap">
 							<FaChair className="text-lg mr-1" />
 							{+listing.furnished ? "Furnished" : "Not Furnished"}
 						</li>
