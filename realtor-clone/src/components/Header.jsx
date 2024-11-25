@@ -38,8 +38,8 @@ export default function Header() {
         }
     }
 	return (
-		<div className="relative bg-white border-b shadow-sm sticky top-0 z-40">
-			<header className="py-4 px-8 | md:flex md:justify-between md:items-center md:max-w-6xl md:mx-auto">
+		<div className="bg-white border-b shadow-sm sticky top-0 z-40">
+			<header className="py-4 px-8 flex justify-between items-center max-w-6xl mx-auto md:py-0">
 				<div>
 					<img
 						src="https://static.rdc.moveaws.com/rdc-ui/logos/logo-brand.svg"
