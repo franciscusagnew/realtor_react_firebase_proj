@@ -3,13 +3,12 @@
 @tailwind utilities;
 
 body {
-    background: rgb(240,253,244);
+    background: #f0fdf4;
 }
 
 .swiper-button-next:after,
 .swiper-button-prev:after {
-    color: red;
-    opacity: .6;
+    color: #f0fdf4;
 }
 
 .swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
