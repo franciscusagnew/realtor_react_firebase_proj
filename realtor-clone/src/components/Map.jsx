@@ -1,3 +1,4 @@
+'use client'
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 
 export default function Map(props) {
