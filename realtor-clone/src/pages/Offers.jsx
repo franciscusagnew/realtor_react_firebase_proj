@@ -25,7 +25,7 @@ export default function Offers() {
 					listingRef,
 					where("offer", "==", true),
 					orderBy("timestamp", "desc"),
-					limit(8)
+					limit(4)
 				);
 				const querySnap = await getDocs(q);
 				const lastVisible = querySnap.docs[querySnap.docs.length - 1];

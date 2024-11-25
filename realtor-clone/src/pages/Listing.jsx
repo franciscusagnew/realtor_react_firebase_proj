@@ -1,5 +1,5 @@
 import { doc, getDoc } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { db } from "../firebase";
 import Spinner from "../components/Spinner";
@@ -17,7 +17,7 @@ import {
 import { TbCurrencyDollarOff } from "react-icons/tb";
 import { getAuth } from "firebase/auth";
 import Contact from "../components/Contact";
-import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import { lazy, Suspense } from 'react';
 
 export default function Listing() {
     const auth = getAuth();
@@ -26,6 +26,7 @@ export default function Listing() {
 	const [loading, setLoading] = useState(true);
     const [shareLinkCopied, setShareLinkCopied] = useState(false);
     const [contactLandlord, setContactLandlord] = useState(false);
+    const Map = lazy(() => import("../components/Map") )
 
 	useEffect(() => {
 		async function fetchListing() {
@@ -147,33 +148,15 @@ export default function Listing() {
 					)}
 				</div>
 				<div className="w-full h-[200px] md:h-[400px] z-10 overflow-x-hidden mt-6 md:mt-0 md:ml-2">
-					<MapContainer
-						center={[listing.geolocation.lat, listing.geolocation.lng]}
-						zoom={13}
-						scrollWheelZoom={false}
-						style={{ height: "100%", width: "100%" }}
+					<Suspense
+						fallback={
+							<div>
+								<Spinner />
+							</div>
+						}
 					>
-						<TileLayer
-							attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-							url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-						/>
-						<Marker
-							position={[listing.geolocation.lat, listing.geolocation.lng]}
-						>
-							<Popup>
-								<p className="font-semibold pr-1">
-									{listing.name}{" "}
-									<span className="text-blue-900">
-										$
-										{listing.regularPrice
-											.toString()
-											.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-									</span>
-								</p>
-								<p>{listing.address}</p>
-							</Popup>
-						</Marker>
-					</MapContainer>
+						<Map lat={listing.geolocation.lat} lng={listing.geolocation.lng} name={listing.name} regularPrice={listing.regularPrice} address={listing.address} />
+					</Suspense>
 				</div>
 			</div>
 		</main>

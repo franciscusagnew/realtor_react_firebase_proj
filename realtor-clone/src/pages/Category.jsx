@@ -27,7 +27,7 @@ export default function Category() {
 					listingRef,
 					where("type", "==", params.categoryName),
 					orderBy("timestamp", "desc"),
-					limit(8)
+					limit(4)
 				);
 				const querySnap = await getDocs(q);
 				const lastVisible = querySnap.docs[querySnap.docs.length - 1];
