@@ -76,7 +76,7 @@ export default function Listing() {
 				<FaShare className="text-lg text-red-500" />
 			</div>
 			{shareLinkCopied && (
-				<p className="fixed top-[23%] right-[5%] border border-slate-600 text-gray-500 rounded-md bg-white z-10 p-2">
+				<p className="absolute top-[20px] right-[70px] border border-slate-600 text-gray-500 rounded-md bg-white z-10 p-2">
 					Link Copied
 				</p>
 			)}
