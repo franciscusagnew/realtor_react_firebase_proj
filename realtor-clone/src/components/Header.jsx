@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { RxHamburgerMenu } from "react-icons/rx";
 
 export default function Header() {
-	const [pageState, setPageState] = useState("Sign In");
+    const [pageState, setPageState] = useState("Sign In");
+    const [isOpen, setIsOpen] = useState(false);
 	const location = useLocation();
 	const navigate = useNavigate();
 	const auth = getAuth();
@@ -24,9 +26,20 @@ export default function Header() {
 			return true;
 		}
 	}
+
+    function toggle() {
+        console.log("Nav toggle clicked");
+        if (!isOpen) {
+            console.log("isOpen: ", isOpen);
+            setIsOpen(true);
+        } else {
+            console.log("isOpen: ", isOpen);
+            setIsOpen(false);
+        }
+    }
 	return (
-		<div className="bg-white border-b shadow-sm sticky top-0 z-40">
-			<header className="flex justify-between items-center px-3 max-w-6xl mx-auto">
+		<div className="relative bg-white border-b shadow-sm sticky top-0 z-40">
+			<header className="py-4 px-8 | md:flex md:justify-between md:items-center md:max-w-6xl md:mx-auto">
 				<div>
 					<img
 						src="https://static.rdc.moveaws.com/rdc-ui/logos/logo-brand.svg"
@@ -36,9 +49,13 @@ export default function Header() {
 					/>
 				</div>
 				<div>
-					<ul className="flex space-x-10">
+					<ul
+						className={`py-3 | md:flex md:items-center md:space-x-10 ${
+							isOpen ? "visible" : "hidden"
+						}`}
+					>
 						<li
-							className={`cursor-pointer py-3 text-sm font-semibold text-slate-500 hover:text-red-600 ${
+							className={`cursor-pointer py-3 font-semibold text-slate-500 hover:text-red-600 ${
 								pathMatchRoute("/") && "text-red-600 font-bold"
 							}`}
 							onClick={() => navigate("/")}
@@ -46,7 +63,7 @@ export default function Header() {
 							Home
 						</li>
 						<li
-							className={`cursor-pointer py-3 text-sm font-semibold text-slate-500 hover:text-red-600 ${
+							className={`cursor-pointer py-3 font-semibold text-slate-500 hover:text-red-600 ${
 								pathMatchRoute("/offers") && "text-red-600 font-bold"
 							}`}
 							onClick={() => navigate("/offers")}
@@ -54,7 +71,7 @@ export default function Header() {
 							Offers
 						</li>
 						<li
-							className={`cursor-pointer py-3 text-sm font-semibold text-slate-500 hover:text-red-600 ${
+							className={`cursor-pointer py-3 font-semibold text-slate-500 hover:text-red-600 ${
 								(pathMatchRoute("/sign-in") || pathMatchRoute("/profile")) &&
 								"text-red-600 font-bold"
 							}`}
@@ -64,6 +81,14 @@ export default function Header() {
 						</li>
 					</ul>
 				</div>
+				<button
+					className="fixed top-[2.5%] right-[5%] cursor-pointer font-semibold text-slate-500  hover:text-red-600 md:hidden"
+					type="button"
+					id="toggler"
+					onClick={toggle}
+				>
+					<RxHamburgerMenu className="w-5 h-5 focus:text-red-600 focus:outline-none" />
+				</button>
 			</header>
 		</div>
 	);

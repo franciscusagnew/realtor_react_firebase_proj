@@ -64,7 +64,7 @@ export default function Listing() {
 				))}
 			</Swiper>
 			<div
-				className="fixed items-center justify-center top-[13%] right-[3%] z-10 flex cursor-pointer bg-white w-10 h-10 border-gray-400 rounded-full"
+				className="absolute items-center justify-center top-[5%] right-[10%] z-10 flex cursor-pointer bg-white w-10 h-10 border-gray-400 rounded-full"
 				onClick={() => {
 					navigator.clipboard.writeText(window.location.href);
 					setShareLinkCopied(true);
